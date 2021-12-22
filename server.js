@@ -31,3 +31,23 @@ app.get("/api/hello", function (req, res) {
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+//---------------------------------------------------------------------
+
+const path = '/api/whoami';
+
+/*const middleware = (request, response, nextAction) => {
+  request.connection.remoteAddress;
+  request.headers["accept-language"];
+  request.headers["user-agent"];
+nextAction();
+}*/
+
+//let userinformation = {};
+const route = (request, response) => {
+  ipaddress = request.ip;
+  language = request.header("accept-language");
+  software = request.header("user-agent");
+  response.json({ipaddress, language, software,});
+}
+
+app.get(path, route);
